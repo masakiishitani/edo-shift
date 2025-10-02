@@ -36,10 +36,63 @@ function App() {
     })
   }
 
-  const resetGenerator = () => {
-    setBirthYear('')
+   const resetGenerator = () => {
     setGeneratorResult(null)
-    setShowGenerator(false)
+    setBirthYear('')
+  }
+
+  // シェア機能
+  const shareToTwitter = (result) => {
+    const text = `${result.inputYear}年生まれの私は、江戸時代の${result.edoData.year}年（${result.edoData.era}）に生まれていました！\n\n${result.edoData.shogun}の時代で、主な出来事：${result.edoData.events[0]}\n\n#EdoShift #江戸時代 #歴史`
+    const url = 'https://edo-shift.vercel.app/'
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+    window.open(twitterUrl, '_blank')
+  }
+
+  const shareGeneral = async (result) => {
+    const shareData = {
+      title: 'Edo-Shift - 江戸時代の私',
+      text: `${result.inputYear}年生まれの私は、江戸時代の${result.edoData.year}年（${result.edoData.era}）に生まれていました！`,
+      url: 'https://edo-shift.vercel.app/'
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+      } catch (err) {
+        console.log('シェアがキャンセルされました')
+      }
+    } else {
+      // Web Share APIが使えない場合はクリップボードにコピー
+      copyToClipboard(result)
+    }
+  }
+
+  const copyToClipboard = async (result) => {
+    const text = `${result.inputYear}年生まれの私は、江戸時代の${result.edoData.year}年（${result.edoData.era}）に生まれていました！\n\n${result.edoData.shogun}の時代で、主な出来事：${result.edoData.events[0]}\n\nhttps://edo-shift.vercel.app/`
+    
+    try {
+      await navigator.clipboard.writeText(text)
+      // 成功時の視覚的フィードバック
+      const button = event.target.closest('button')
+      const originalText = button.textContent
+      button.textContent = 'コピーしました！'
+      button.classList.add('bg-green-500')
+      setTimeout(() => {
+        button.textContent = originalText
+        button.classList.remove('bg-green-500')
+      }, 2000)
+    } catch (err) {
+      console.error('クリップボードへのコピーに失敗しました:', err)
+      // フォールバック: テキストを選択状態にする
+      const textArea = document.createElement('textarea')
+      textArea.value = text
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      alert('テキストをクリップボードにコピーしました')
+    }
   }
 
   const modernData = getHistoryDataByYear(currentYear[0], modernPeriodData)
@@ -281,7 +334,37 @@ function App() {
                       </Card>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-center space-y-4">
+                      <div className="flex flex-wrap justify-center gap-3">
+                        <Button 
+                          onClick={() => shareToTwitter(generatorResult)}
+                          className="bg-blue-500 hover:bg-blue-600 text-white flex items-center gap-2"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                          </svg>
+                          Xでシェア
+                        </Button>
+                        <Button 
+                          onClick={() => shareGeneral(generatorResult)}
+                          className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                          </svg>
+                          シェア
+                        </Button>
+                        <Button 
+                          onClick={() => copyToClipboard(generatorResult)}
+                          variant="outline"
+                          className="bg-white/10 border-white/30 text-white hover:bg-white/20 flex items-center gap-2"
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                          </svg>
+                          コピー
+                        </Button>
+                      </div>
                       <Button 
                         onClick={resetGenerator}
                         variant="outline"
