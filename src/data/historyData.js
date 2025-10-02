@@ -1,18 +1,18 @@
-// 江戸時代と近現代の歴史データ
+// 江戸時代の歴史データ（1603年〜1868年）
 export const edoPeriodData = [
   {
     year: 1603,
     era: "慶長8年",
     yearsFromStart: 0,
     shogun: "徳川家康",
-    events: ["徳川家康、征夷大将軍となり江戸幕府を開く", "出雲の阿国が京都で「かぶき踊り」を始める"]
+    events: ["江戸幕府開府", "関ヶ原の戦い後の政権確立"]
   },
   {
     year: 1615,
     era: "元和元年",
     yearsFromStart: 12,
     shogun: "徳川秀忠",
-    events: ["大坂夏の陣で豊臣氏滅亡", "武家諸法度制定"]
+    events: ["大坂夏の陣", "豊臣氏滅亡"]
   },
   {
     year: 1635,
@@ -22,39 +22,46 @@ export const edoPeriodData = [
     events: ["参勤交代制度化", "日本人の海外渡航禁止"]
   },
   {
+    year: 1641,
+    era: "寛永18年",
+    yearsFromStart: 38,
+    shogun: "徳川家光",
+    events: ["鎖国体制完成", "オランダ商館を出島に移転"]
+  },
+  {
     year: 1657,
     era: "明暦3年",
     yearsFromStart: 54,
     shogun: "徳川家綱",
-    events: ["明暦の大火（振袖火事）", "江戸の大部分が焼失"]
+    events: ["明暦の大火", "江戸の大規模都市計画"]
   },
   {
     year: 1680,
     era: "延宝8年",
     yearsFromStart: 77,
     shogun: "徳川綱吉",
-    events: ["生類憐れみの令発布", "儒学の振興"]
+    events: ["生類憐れみの令", "文治政治の推進"]
   },
   {
-    year: 1709,
-    era: "宝永6年",
-    yearsFromStart: 106,
-    shogun: "徳川家宣",
-    events: ["生類憐れみの令廃止", "新井白石の政治改革"]
+    year: 1703,
+    era: "元禄16年",
+    yearsFromStart: 100,
+    shogun: "徳川綱吉",
+    events: ["赤穂浪士の討ち入り", "元禄文化の絶頂期"]
   },
   {
     year: 1716,
     era: "享保元年",
     yearsFromStart: 113,
     shogun: "徳川吉宗",
-    events: ["享保の改革開始", "目安箱設置"]
+    events: ["享保の改革開始", "新田開発の推進"]
   },
   {
     year: 1742,
     era: "寛保2年",
     yearsFromStart: 139,
     shogun: "徳川吉宗",
-    events: ["公事方御定書制定", "享保の大飢饉"]
+    events: ["公事方御定書制定", "法制度の整備"]
   },
   {
     year: 1760,
@@ -64,25 +71,25 @@ export const edoPeriodData = [
     events: ["宝暦事件", "田沼意次の台頭"]
   },
   {
-    year: 1774,
-    era: "安永3年",
-    yearsFromStart: 171,
+    year: 1782,
+    era: "天明2年",
+    yearsFromStart: 179,
     shogun: "徳川家治",
-    events: ["杉田玄白『解体新書』刊行", "平賀源内がエレキテル復元"]
+    events: ["天明の大飢饉", "浅間山大噴火"]
   },
   {
     year: 1787,
     era: "天明7年",
     yearsFromStart: 184,
     shogun: "徳川家斉",
-    events: ["寛政の改革開始", "天明の大飢饉終息"]
+    events: ["寛政の改革開始", "松平定信の政治改革"]
   },
   {
     year: 1804,
     era: "文化元年",
     yearsFromStart: 201,
     shogun: "徳川家斉",
-    events: ["文化・文政時代の始まり", "化政文化の隆盛"]
+    events: ["文化・文政時代開始", "化政文化の発展"]
   },
   {
     year: 1825,
@@ -121,13 +128,14 @@ export const edoPeriodData = [
   }
 ];
 
+// 近現代の歴史データ（1868年〜現在）
 export const modernPeriodData = [
   {
     year: 1868,
     era: "明治元年",
     yearsFromStart: 0,
     leader: "明治天皇",
-    events: ["明治維新", "五箇条の御誓文", "江戸を東京に改称"]
+    events: ["明治維新", "江戸から東京への遷都"]
   },
   {
     year: 1871,
@@ -141,14 +149,14 @@ export const modernPeriodData = [
     era: "明治22年",
     yearsFromStart: 21,
     leader: "明治天皇",
-    events: ["大日本帝国憲法発布", "東海道本線全線開通"]
+    events: ["大日本帝国憲法発布", "立憲君主制の確立"]
   },
   {
     year: 1894,
     era: "明治27年",
     yearsFromStart: 26,
     leader: "明治天皇",
-    events: ["日清戦争開始", "近代化の加速"]
+    events: ["日清戦争開始", "近代国家としての地位確立"]
   },
   {
     year: 1904,
@@ -162,42 +170,42 @@ export const modernPeriodData = [
     era: "大正元年",
     yearsFromStart: 44,
     leader: "大正天皇",
-    events: ["明治天皇崩御", "大正デモクラシーの始まり"]
+    events: ["大正時代開始", "大正デモクラシーの萌芽"]
   },
   {
     year: 1923,
     era: "大正12年",
     yearsFromStart: 55,
     leader: "大正天皇",
-    events: ["関東大震災", "復興への取り組み"]
+    events: ["関東大震災", "復興と都市計画"]
   },
   {
     year: 1926,
     era: "昭和元年",
     yearsFromStart: 58,
     leader: "昭和天皇",
-    events: ["昭和時代開始", "モダンライフの普及"]
+    events: ["昭和時代開始", "モダニズム文化の発展"]
   },
   {
     year: 1941,
     era: "昭和16年",
     yearsFromStart: 73,
     leader: "昭和天皇",
-    events: ["太平洋戦争開始", "真珠湾攻撃"]
+    events: ["太平洋戦争開戦", "真珠湾攻撃"]
   },
   {
     year: 1945,
     era: "昭和20年",
     yearsFromStart: 77,
     leader: "昭和天皇",
-    events: ["第二次世界大戦終戦", "戦後復興の始まり"]
+    events: ["終戦", "戦後復興の開始"]
   },
   {
     year: 1964,
     era: "昭和39年",
     yearsFromStart: 96,
     leader: "昭和天皇",
-    events: ["東京オリンピック開催", "東海道新幹線開業"]
+    events: ["東京オリンピック開催", "高度経済成長期"]
   },
   {
     year: 1989,
@@ -240,14 +248,49 @@ export const modernPeriodData = [
     yearsFromStart: 157,
     leader: "令和天皇",
     events: ["大阪・関西万博開催予定", "デジタル社会の進展"]
+  },
+  {
+    year: 2030,
+    era: "令和12年",
+    yearsFromStart: 162,
+    leader: "令和天皇",
+    events: ["大阪・関西万博開催", "リニア中央新幹線開業予定"]
+  },
+  {
+    year: 2040,
+    era: "令和22年",
+    yearsFromStart: 172,
+    leader: "令和天皇",
+    events: ["人口減少社会の本格化", "AI・ロボット技術の普及"]
+  },
+  {
+    year: 2050,
+    era: "令和32年",
+    yearsFromStart: 182,
+    leader: "令和天皇",
+    events: ["カーボンニュートラル目標年", "宇宙開発の進展"]
+  },
+  {
+    year: 2100,
+    era: "令和82年",
+    yearsFromStart: 232,
+    leader: "未来の指導者",
+    events: ["22世紀への転換点", "技術革新の時代"]
+  },
+  {
+    year: 2132,
+    era: "令和114年",
+    yearsFromStart: 264,
+    leader: "未来の指導者",
+    events: ["江戸時代と同じ年数経過", "歴史の新たな節目"]
   }
 ];
 
-// 指定された年数から最も近いデータを取得する関数
-export const getDataByYear = (yearFromStart, dataArray) => {
+// 指定された年数に最も近い歴史データを取得する関数
+export const getHistoryDataByYear = (yearsFromStart, dataArray) => {
   return dataArray.reduce((prev, curr) => {
-    return Math.abs(curr.yearsFromStart - yearFromStart) < Math.abs(prev.yearsFromStart - yearFromStart) 
-      ? curr 
+    return Math.abs(curr.yearsFromStart - yearsFromStart) < Math.abs(prev.yearsFromStart - yearsFromStart)
+      ? curr
       : prev;
   });
 };

@@ -49,8 +49,17 @@ function App() {
         <div className="mb-8 text-center">
           <div className="inline-block bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
             <p className="text-white mb-4 text-lg">
-              現代: <span className="font-bold text-blue-200">{modernData.year}年</span>
-              （明治から<span className="font-bold text-blue-200">{currentYear[0]}年後</span>）
+              {modernData.year > 2025 ? (
+                <>
+                  未来: <span className="font-bold text-amber-200">{modernData.year}年</span>
+                  （明治から<span className="font-bold text-amber-200">{currentYear[0]}年後</span>）
+                </>
+              ) : (
+                <>
+                  現代: <span className="font-bold text-blue-200">{modernData.year}年</span>
+                  （明治から<span className="font-bold text-blue-200">{currentYear[0]}年後</span>）
+                </>
+              )}
             </p>
             
             {/* スライダー */}
@@ -67,7 +76,7 @@ function App() {
             
             <div className="flex justify-between text-sm text-blue-200 w-80 mx-auto">
               <span>明治元年</span>
-              <span>現在</span>
+              <span>{modernData.year > 2025 ? '未来' : '現在'}</span>
             </div>
           </div>
         </div>
@@ -78,7 +87,7 @@ function App() {
           <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
             <CardHeader className="border-b border-white/20">
               <CardTitle className="text-2xl text-center text-blue-200">
-                近現代
+                {modernData.year > 2025 ? '未来' : '近現代'}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
