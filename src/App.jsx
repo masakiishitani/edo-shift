@@ -87,6 +87,44 @@ function App() {
     }
   }
 
+  // タイムスライダー用シェア関数
+  const shareSliderResult = (modernData, edoData) => {
+    const text = `${modernData.year}年は江戸時代の${edoData.year}年（${edoData.era}）に対応！\n\n現代：${modernData.events[0]}\n江戸時代：${edoData.events[0]}\n\n#EdoShift #江戸時代 #歴史`
+    const url = 'https://edo-shift.vercel.app/'
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+    window.open(twitterUrl, '_blank')
+  }
+
+  const shareSliderGeneral = async (modernData, edoData) => {
+    const shareData = {
+      title: 'Edo-Shift - 時代比較',
+      text: `${modernData.year}年は江戸時代の${edoData.year}年（${edoData.era}）に対応！`,
+      url: 'https://edo-shift.vercel.app/'
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+      } catch (err) {
+        console.log('シェアがキャンセルされました')
+      }
+    } else {
+      copySliderResult(modernData, edoData)
+    }
+  }
+
+  const copySliderResult = async (modernData, edoData) => {
+    const text = `${modernData.year}年は江戸時代の${edoData.year}年（${edoData.era}）に対応！\n\n現代：${modernData.events[0]}\n江戸時代：${edoData.events[0]}\n\nhttps://edo-shift.vercel.app/`
+    
+    try {
+      await navigator.clipboard.writeText(text)
+      alert('クリップボードにコピーしました！')
+    } catch (err) {
+      console.error('コピーに失敗しました:', err)
+      alert('コピーに失敗しました')
+    }
+  }
+
   const copyToClipboard = async (result) => {
     const text = `${result.inputYear}年生まれの私は、江戸時代の${result.edoData.year}年（${result.edoData.era}）に生まれていました！\n\n${result.edoData.shogun}の時代で、主な出来事：${result.edoData.events[0]}\n\nhttps://edo-shift.vercel.app/`
     
@@ -269,6 +307,42 @@ function App() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* タイムスライダー用シェアボタン */}
+        <div className="mt-8 text-center">
+          <div className="inline-block bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+            <p className="text-white mb-4 text-sm">この比較結果をシェア</p>
+            <div className="flex gap-3 justify-center">
+              <Button
+                onClick={() => shareSliderResult(modernData, edoData)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm transition-all duration-300 transform hover:scale-105"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                Xでシェア
+              </Button>
+              <Button
+                onClick={() => shareSliderGeneral(modernData, edoData)}
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm transition-all duration-300 transform hover:scale-105"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.50-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                </svg>
+                シェア
+              </Button>
+              <Button
+                onClick={() => copySliderResult(modernData, edoData)}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm transition-all duration-300 transform hover:scale-105"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+                コピー
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* もしもジェネレーター */}
