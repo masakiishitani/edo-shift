@@ -256,5 +256,6 @@ export const getDataByYear = (yearFromStart, dataArray) => {
 export const getYearRange = () => {
   const maxModernYear = Math.max(...modernPeriodData.map(d => d.yearsFromStart));
   const maxEdoYear = Math.max(...edoPeriodData.map(d => d.yearsFromStart));
-  return Math.min(maxModernYear, maxEdoYear);
+  // 江戸時代の最後（264年）まで表示できるよう、より大きい値を返す
+  return Math.max(maxModernYear, maxEdoYear);
 };
