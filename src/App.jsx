@@ -12,9 +12,28 @@ function App() {
   const [showGenerator, setShowGenerator] = useState(false)
   const [birthYear, setBirthYear] = useState('')
   const [generatorResult, setGeneratorResult] = useState(null)
+  const [showDetailModal, setShowDetailModal] = useState(false)
+  const [detailModalData, setDetailModalData] = useState(null)
 
   const handleSliderChange = (value) => {
     setCurrentYear(value)
+  }
+
+  // ランダム年代機能
+  const handleRandomYear = () => {
+    const randomYear = Math.floor(Math.random() * (maxYear + 1))
+    setCurrentYear([randomYear])
+  }
+
+  // 詳細ポップアップ機能
+  const showDetailInfo = (data, type) => {
+    setDetailModalData({ ...data, type })
+    setShowDetailModal(true)
+  }
+
+  const closeDetailModal = () => {
+    setShowDetailModal(false)
+    setDetailModalData(null)
   }
 
   const handleGeneratorSubmit = () => {
@@ -156,10 +175,18 @@ function App() {
               />
             </div>
             
-            <div className="flex justify-between text-sm text-blue-200 w-80 mx-auto">
+            <div className="flex justify-between text-sm text-blue-200 w-80 mx-auto mb-4">
               <span>明治元年</span>
               <span>{modernData.year > 2025 ? '未来' : '現在'}</span>
             </div>
+            
+            {/* ランダムボタン */}
+            <Button
+              onClick={handleRandomYear}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
+              🎲 ランダム年代
+            </Button>
           </div>
         </div>
 
@@ -175,7 +202,13 @@ function App() {
             <CardContent className="p-6 space-y-4">
               <div className="space-y-2">
                 <p className="text-lg">
-                  <span className="font-semibold">西暦:</span> {modernData.year}年 ({modernData.era})
+                  <span className="font-semibold">西暦:</span> 
+                  <button 
+                    onClick={() => showDetailInfo(modernData, 'modern')}
+                    className="ml-2 text-blue-200 hover:text-blue-100 underline decoration-dotted hover:decoration-solid transition-all duration-200"
+                  >
+                    {modernData.year}年 ({modernData.era})
+                  </button>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">明治から:</span> {modernData.yearsFromStart}年後
@@ -208,7 +241,13 @@ function App() {
             <CardContent className="p-6 space-y-4">
               <div className="space-y-2">
                 <p className="text-lg">
-                  <span className="font-semibold">西暦:</span> {edoData.year}年 ({edoData.era})
+                  <span className="font-semibold">西暦:</span> 
+                  <button 
+                    onClick={() => showDetailInfo(edoData, 'edo')}
+                    className="ml-2 text-amber-200 hover:text-amber-100 underline decoration-dotted hover:decoration-solid transition-all duration-200"
+                  >
+                    {edoData.year}年 ({edoData.era})
+                  </button>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">江戸幕府成立から:</span> {edoData.yearsFromStart}年後
@@ -412,6 +451,91 @@ function App() {
           </div>
         </footer>
       </div>
+
+      {/* 詳細情報モーダル */}
+      {showDetailModal && detailModalData && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              {/* モーダルヘッダー */}
+              <div className="flex justify-between items-center mb-6">
+                <h2 className={`text-2xl font-bold ${detailModalData.type === 'edo' ? 'text-amber-200' : 'text-blue-200'}`}>
+                  {detailModalData.year}年（{detailModalData.era}）の詳細
+                </h2>
+                <button
+                  onClick={closeDetailModal}
+                  className="text-white hover:text-gray-300 text-2xl font-bold transition-colors"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* モーダル内容 */}
+              <div className="space-y-6 text-white">
+                <div>
+                  <h3 className={`text-lg font-semibold mb-3 ${detailModalData.type === 'edo' ? 'text-amber-200' : 'text-blue-200'}`}>
+                    📅 基本情報
+                  </h3>
+                  <div className="space-y-2 text-sm">
+                    <p><span className="font-semibold">年代:</span> {detailModalData.year}年</p>
+                    <p><span className="font-semibold">時代:</span> {detailModalData.era}</p>
+                    <p><span className="font-semibold">{detailModalData.type === 'edo' ? '将軍' : '指導者'}:</span> {detailModalData.type === 'edo' ? detailModalData.shogun : detailModalData.leader}</p>
+                    <p><span className="font-semibold">{detailModalData.type === 'edo' ? '江戸幕府成立' : '明治'}から:</span> {detailModalData.yearsFromStart}年後</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className={`text-lg font-semibold mb-3 ${detailModalData.type === 'edo' ? 'text-amber-200' : 'text-blue-200'}`}>
+                    📜 主な出来事・特徴
+                  </h3>
+                  <ul className="space-y-2 text-sm">
+                    {detailModalData.events.map((event, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-gray-400 mr-2">•</span>
+                        <span>{event}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {detailModalData.type === 'edo' && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3 text-amber-200">
+                      🏛️ 江戸時代の特色
+                    </h3>
+                    <p className="text-sm text-gray-300">
+                      この時代は江戸幕府による武家政治が確立され、身分制度が厳格に定められていました。
+                      鎖国政策により独自の文化が発達し、平和な時代が続いていました。
+                    </p>
+                  </div>
+                )}
+
+                {detailModalData.type === 'modern' && detailModalData.year > 2025 && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3 text-blue-200">
+                      🔮 未来予測
+                    </h3>
+                    <p className="text-sm text-gray-300">
+                      この年代は現在から見た未来の予測です。技術革新や社会変化により、
+                      実際の出来事は予測と異なる可能性があります。
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* 閉じるボタン */}
+              <div className="mt-6 text-center">
+                <Button
+                  onClick={closeDetailModal}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-full"
+                >
+                  閉じる
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
