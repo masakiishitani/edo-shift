@@ -1,0 +1,22 @@
+{
+    "name": "Edo-Shift",
+    "short_name": "Edo-Shift",
+    "description": "あなたの今は、江戸時代のいつ？現代と江戸時代の時間軸を比較するWebアプリ",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1e3a8a",
+    "background_color": "#0f172a",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
