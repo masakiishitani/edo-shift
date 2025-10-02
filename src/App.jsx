@@ -313,7 +313,7 @@ function App() {
             </p>
             <div className="flex justify-center items-center gap-4 text-xs text-blue-300">
               <a 
-                href="https://github.com/masakiishitani/edo-shift" 
+                href="https://github.com/masakiishitani/edo-shift/blob/main/README.md" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-200 flex items-center gap-1"
